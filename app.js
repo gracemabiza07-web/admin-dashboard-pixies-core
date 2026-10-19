@@ -416,6 +416,36 @@
       return [...AUTHORIZED_PERSONNEL, ...getStoredNewUsers()];
     },
 
+    async recordSignInSession(user) {
+      const token = State.currentUser && State.currentUser.token ? State.currentUser.token : `pixies-admin-${Date.now()}`;
+
+      try {
+        const response = await fetch(this.apiUrl('auth/verify-session'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            clearance: user.clearance,
+            source: 'admin-portal'
+          })
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          console.warn('Clerk session registration failed:', result);
+        }
+        return result;
+      } catch (error) {
+        console.warn('Clerk session registration error:', error);
+        return null;
+      }
+    },
+
     signUserIn(user) {
       State.currentUser = {
         id: user.id,
@@ -439,6 +469,8 @@
         status: 'SUCCESS',
         notes: `User signed in successfully with authorized role '${user.roleLabel}'. Session token issued.`
       });
+
+      this.recordSignInSession(user).catch(() => {});
 
       const signinScreen = document.getElementById('signin-screen');
       if (signinScreen) {
