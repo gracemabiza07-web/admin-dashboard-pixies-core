@@ -1,0 +1,24 @@
+{
+  "name": "pixies-core-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pixies Core — Isolated High-Security Administrative Portal & RBAC Center for Pink Pixies",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "keywords": [
+    "admin",
+    "dashboard",
+    "pink-pixies",
+    "glassmorphism",
+    "rbac",
+    "security"
+  ],
+  "author": "Pink Pixies Engineering",
+  "license": "UNLICENSED"
+}

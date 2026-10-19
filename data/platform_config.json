@@ -1,0 +1,28 @@
+{
+  "maintenance_mode": false,
+  "maintenance_notice": "Pink Pixies Scheduled Maintenance — We are currently upgrading our luxury beauty network. Bookings will resume shortly! 💖",
+  "emergency_bypass_code": "pinkpixies2026",
+  "announcement_banner": {
+    "enabled": true,
+    "text": "✨ FLASH OFFER: 20% OFF all Luxury Gel Nails & Russian Lashes this week! Use code PINK20",
+    "badge": "FLASH OFFER",
+    "link": "#featured-pros-container",
+    "link_text": "Book Artist",
+    "type": "pink"
+  },
+  "take_rate_percentage": 15.0,
+  "min_deposit_percentage": 20.0,
+  "currency": "ZMW",
+  "hero_badge": "✨ Zambia & Nigeria’s #1 Luxury Beauty Network",
+  "hero_title": "Discover & Book Verified Nail & Lash Artists",
+  "hero_subtitle": "Direct home visits and luxury salon appointments across Lusaka, Lagos, and Cape Town.",
+  "active_gateways": {
+    "paystack": true,
+    "stripe": true,
+    "cash": true
+  },
+  "whatsapp_notifications": true,
+  "push_notifications": true,
+  "last_updated": "2026-10-18T16:50:00.000Z",
+  "updated_by": "System Admin"
+}

@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixies Core | High-Security Administration Portal</title>
+  <meta name="description" content="Isolated administrative dashboard and role-based governance center for Pink Pixies." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23EC4899' d='M50 88.5C50 88.5 15 62 15 36C15 22 26 11 40 11C46 11 50 14 50 14C50 14 54 11 60 11C74 11 85 22 85 36C85 62 50 88.5 50 88.5Z'/></svg>" />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.__PIXIES_CONFIG__ = window.__PIXIES_CONFIG__ || {
+      SUPABASE_URL: '',
+      SUPABASE_ANON_KEY: '',
+      API_BASE_URL: '',
+      CLERK_PUBLISHABLE_KEY: ''
+    };
+
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#050508',
+              surface: '#0A0A10',
+              card: 'rgba(14, 14, 22, 0.72)',
+              pink: '#EC4899',
+              'pink-glow': '#F472B6',
+              'pink-deep': '#BE185D',
+              'pink-accent': '#FF2D87'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet (Glassmorphism + 3D Heart Activation + Blurry Transitions) -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-[#050508] text-slate-100 font-sans selection:bg-pink-500 selection:text-white">
+
+  <!-- =========================================================================
+       SCREEN 1: SPLASH SCREEN (PIXIES CORE INITIALIZATION)
+       ========================================================================= -->
+  <section id="splash-screen" class="blur-layer">
+    <!-- Ambient Background Glow Orb -->
+    <div class="splash-bg-glow"></div>
+
+    <!-- 3D Heart Stage with Activation Waves -->
+    <div class="heart-stage">
+      <div class="activation-ring-outer"></div>
+      <div class="activation-ring"></div>
+      
+      <!-- 3D Heart with blurry on/off activation animation -->
+      <div class="heart-3d-wrapper">
+        <svg class="heart-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="heartGradient" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#FF65B2" />
+              <stop offset="50%" stop-color="#EC4899" />
+              <stop offset="85%" stop-color="#BE185D" />
+              <stop offset="100%" stop-color="#831843" />
+            </radialGradient>
+            <filter id="glow3d" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <!-- Specular 3D Heart Path -->
+          <path d="M50 86C50 86 16 60 16 34C16 20 27 9 41 9C47 9 50 12 50 12C50 12 53 9 59 9C73 9 84 20 84 34C84 60 50 86 50 86Z" 
+                fill="url(#heartGradient)" 
+                filter="url(#glow3d)" 
+                stroke="rgba(255,255,255,0.35)" 
+                stroke-width="1.5" />
+          <!-- Specular Highlight Overlay -->
+          <path d="M28 22C24 28 24 36 28 42" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Splash Typography -->
+    <h1 class="splash-brand">Pixies Core</h1>
+    <div class="splash-badge">
+      <span class="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
+      System Initialization
+    </div>
+
+    <!-- 0% - 100% Loading Bar & Subtext -->
+    <div class="loading-box">
+      <div class="progress-track">
+        <div id="splash-progress-bar" class="progress-fill"></div>
+      </div>
+      <div class="loading-meta">
+        <span id="splash-status" class="loading-status">INITIALIZING SECURITY SYSTEM...</span>
+        <span id="splash-percentage" class="loading-percentage">0%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SCREEN 2: SIGN-IN SCREEN (WITH LIVE VIDEO BACKGROUND)
+       ========================================================================= -->
+  <section id="signin-screen" class="blur-layer blur-hidden">
+    <!-- Live Background Video Container -->
+    <div class="video-bg-container">
+      <!-- High-end dark ambient abstract background stream (with direct loop) -->
+      <video class="video-bg" autoplay muted loop playsinline poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100%' height='100%' fill='%23050508'/></svg>">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-pink-particles-floating-in-the-dark-41584-large.mp4" type="video/mp4">
+      </video>
+      <!-- Fallback interactive particle canvas for offline or slow network conditions -->
+      <canvas id="video-fallback-canvas"></canvas>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Glassmorphic Sign-In Card -->
+    <div class="signin-card">
+      <div class="signin-header">
+        <div class="signin-logo">
+          <svg class="w-8 h-8 text-pink-500 filter drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <h2 class="signin-title">Welcome to Pixies Core Sign In</h2>
+        <p class="signin-subtitle">Isolated Role-Based Administration Center</p>
+      </div>
+
+      <!-- Security Warning / Role Mismatch Error Banner -->
+      <div id="signin-error-banner" class="error-banner">
+        <svg class="w-5 h-5 flex-shrink-0 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+        </svg>
+        <span id="signin-error-text" class="leading-tight"></span>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signin-form" autocomplete="off">
+        <!-- Role Selection Dropdown (STRICT ROLE-BASED ACCESS CONTROL) -->
+        <div class="form-group">
+          <label class="form-label" for="signin-role">Designated System Role</label>
+          <div class="relative">
+            <select id="signin-role" class="form-select cursor-pointer pr-10" required>
+              <option value="" disabled selected>Select your authorized role...</option>
+              <option value="manager">General Manager (Operations & Approvals)</option>
+              <option value="staff">Staff Member (Support & Bookings)</option>
+              <option value="admin">Platform Administrator (Root Authority)</option>
+              <option value="finance">Finance & Treasury Lead (Payouts & Fees)</option>
+            </select>
+            <div class="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-pink-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Identity / Email -->
+        <div class="form-group">
+          <label class="form-label" for="signin-email">Official Personnel Email</label>
+          <input type="email" id="signin-email" class="form-input" placeholder="e.g. manager@pinkpixies.com" required />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="form-label !mb-0" for="signin-password">Security Passphrase</label>
+            <span class="text-[11px] text-pink-400/80 cursor-pointer hover:underline" onclick="alert('For development testing, use password: password123\n\nAuthorized accounts:\n• manager@pinkpixies.com (Role: Manager)\n• staff@pinkpixies.com (Role: Staff Member)\n• admin@pinkpixies.com (Role: Platform Admin)\n• finance@pinkpixies.com (Role: Finance Lead)')">Demo Credentials</span>
+          </div>
+          <input type="password" id="signin-password" class="form-input" placeholder="••••••••••••" required />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit mt-2">
+          <span>Authorize Access</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+
+        <div class="mt-4 text-center">
+          <button type="button" id="show-signup-toggle" class="text-sm text-pink-400 hover:text-pink-300 underline transition-colors">
+            Create a new staff account
+          </button>
+        </div>
+
+        <!-- Security Audit Warning -->
+        <div class="security-footer">
+          <svg class="w-3.5 h-3.5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          <span>Strict Audit Active: Email & Assigned Role Verified for Entry</span>
+        </div>
+      </form>
+
+      <form id="signup-form" class="hidden mt-4" autocomplete="off">
+        <div class="border border-pink-500/25 rounded-2xl bg-black/20 p-4">
+          <div class="text-xs uppercase tracking-[0.28em] text-pink-400/80 mb-3">Create Access</div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" class="form-input" placeholder="e.g. Grace Mumba" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-email">Work Email</label>
+            <input type="email" id="signup-email" class="form-input" placeholder="e.g. grace@pinkpixies.com" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Create Passphrase</label>
+            <input type="password" id="signup-password" class="form-input" placeholder="Create a strong password" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-role">Role</label>
+            <select id="signup-role" class="form-select cursor-pointer" required>
+              <option value="" disabled selected>Select your role...</option>
+              <option value="manager">General Manager</option>
+              <option value="staff">Staff Member</option>
+              <option value="admin">Platform Administrator</option>
+              <option value="finance">Finance & Treasury Lead</option>
+            </select>
+          </div>
+
+          <div class="flex gap-3 mt-3">
+            <button type="submit" class="btn-submit flex-1">
+              <span>Sign Up & Enter</span>
+            </button>
+            <button type="button" id="hide-signup-toggle" class="px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-slate-300 hover:bg-white/10 transition-colors">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SCREEN 3: MAIN ISOLATED DASHBOARD (SHADCN INSPIRED)
+       ========================================================================= -->
+  <section id="dashboard-screen" class="blur-layer blur-hidden">
+    <!-- Left Navigation Sidebar -->
+    <aside id="main-sidebar" class="sidebar">
+      <div>
+        <!-- Sidebar Brand Header -->
+        <div class="sidebar-header">
+          <a href="#" class="brand-wrapper">
+            <div class="brand-icon">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="brand-title">Pixies Core</div>
+              <div class="brand-pill">ISOLATED v2.4</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Sidebar Navigation Groups -->
+        <nav class="sidebar-nav">
+          <!-- Group 1: Dashboards -->
+          <div>
+            <div class="nav-group-label">Platform Analytics</div>
+            <ul class="nav-list">
+              <li>
+                <a href="#overview" class="nav-link active" data-tab="overview">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                  <span>Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="#financials" class="nav-link" data-tab="financials">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <span>Financials & Router</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Group 2: Marketplace Operations -->
+          <div>
+            <div class="nav-group-label">Marketplace</div>
+            <ul class="nav-list">
+              <li>
+                <a href="#verifications" class="nav-link" data-tab="verifications">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                  <span>Pro Verifications</span>
+                  <span class="nav-badge">3</span>
+                </a>
+              </li>
+              <li>
+                <a href="#appointments" class="nav-link" data-tab="appointments">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  <span>Appointments</span>
+                </a>
+              </li>
+              <li>
+                <a href="#concierge" class="nav-link" data-tab="concierge">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                  <span>Live Concierge (HR)</span>
+                  <span id="nav-concierge-badge" class="nav-badge !bg-pink-500/20 !text-pink-400">1 LIVE</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Group 3: Security & Governance -->
+          <div>
+            <div class="nav-group-label">Governance & Security</div>
+            <ul class="nav-list">
+              <li>
+                <a href="#users" class="nav-link" data-tab="users">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                  <span>Users & Roles (RBAC)</span>
+                </a>
+              </li>
+              <li>
+                <a href="#security" class="nav-link" data-tab="security">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                  <span>Security Center & Ledger</span>
+                  <span class="nav-badge !bg-emerald-500/20 !text-emerald-400">AUDIT</span>
+                </a>
+              </li>
+              <li>
+                <a href="#media" class="nav-link" data-tab="media">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                  <span>Login Video & Brand</span>
+                  <span class="nav-badge !bg-purple-500/20 !text-purple-400">MEDIA</span>
+                </a>
+              </li>
+              <li>
+                <a href="#settings" class="nav-link" data-tab="settings">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  <span>System Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Sidebar User Footer -->
+      <div class="sidebar-footer">
+        <div class="user-profile-card">
+          <div id="user-display-avatar" class="user-avatar">AD</div>
+          <div class="user-info">
+            <div id="user-display-name" class="user-name">Active Personnel</div>
+            <div id="user-display-role" class="user-role-badge">Clearance Active</div>
+          </div>
+          <button id="btn-signout" class="btn-signout-icon" title="Sign Out">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Dashboard Work Area -->
+    <main class="dashboard-main">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="btn-toggle-sidebar" class="btn-sidebar-toggle" title="Toggle Sidebar">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          
+          <!-- Cmd + K Command Palette Trigger -->
+          <div id="search-palette-trigger" class="search-palette-trigger">
+            <svg class="w-3.5 h-3.5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <span>Search Pixies Core...</span>
+            <span class="kbd-shortcut">Ctrl K</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Session Status Pill -->
+          <div class="security-status-indicator">
+            <span class="pulse-dot"></span>
+            <span>ACTIVE SECURE SESSION</span>
+          </div>
+
+          <!-- Role Badge -->
+          <div id="header-role-pill" class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-400">
+            AUTHORIZED
+          </div>
+
+          <!-- Notifications Icon -->
+          <button class="btn-header-icon" onclick="alert('Notification Center:\n\n• 3 Technicians pending document verification\n• Paystack batch #294 settled successfully\n• WhatsApp Twilio sandbox connected')">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            <span class="badge-counter">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Tab Views -->
+      <div class="view-container">
+        
+        <!-- ===================================================================
+             VIEW 1: OVERVIEW DASHBOARD
+             =================================================================== -->
+        <div id="view-overview" class="tab-view tab-content">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Executive Overview</h2>
+              <p class="view-subheading">Live platform activity, verification pipeline, and revenue velocity.</p>
+            </div>
+            <div class="view-actions">
+              <button onclick="window.PixiesCore.switchTab('verifications')" class="btn-primary">
+                <span>Review Verifications (3)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Metric Cards Grid -->
+          <div class="metrics-grid">
+            <!-- Card 1: Gross Revenue -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Gross Volume</span>
+                <div class="metric-icon-box">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+              </div>
+              <div id="kpi-revenue" class="metric-value">ZMW 1,920.00</div>
+              <div class="metric-footer">
+                <span class="metric-trend-positive">↑ 18.4%</span>
+                <span class="metric-trend-neutral">vs last month</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Platform Revenue Take-Rate -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Platform Fees (15%)</span>
+                <div class="metric-icon-box">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </div>
+              </div>
+              <div id="kpi-commission" class="metric-value">ZMW 288.00</div>
+              <div class="metric-footer">
+                <span class="metric-trend-positive">↑ 14.2%</span>
+                <span class="metric-trend-neutral">net earnings</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Total Bookings -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Appointments Booked</span>
+                <div class="metric-icon-box">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+              </div>
+              <div id="kpi-bookings" class="metric-value">4</div>
+              <div class="metric-footer">
+                <span class="metric-trend-positive">↑ 22%</span>
+                <span class="metric-trend-neutral">this cycle</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Pending Verifications -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Pending Pro Reviews</span>
+                <div class="metric-icon-box !text-amber-400 !bg-amber-400/10">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+              </div>
+              <div id="kpi-pending-verifications" class="metric-value text-amber-400">3</div>
+              <div class="metric-footer">
+                <span class="text-amber-400 font-semibold">Action Required</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analytics & Spotlight Row -->
+          <div class="analytics-row">
+            <!-- Revenue Velocity Curve (SVG Chart) -->
+            <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="card-title">Booking & Transaction Volume</h3>
+                  <p class="card-subtitle">Real-time settlement activity across Paystack & Stripe</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="flex items-center gap-1.5 text-xs text-pink-400 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> Nails</span>
+                  <span class="flex items-center gap-1.5 text-xs text-purple-400 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Lashes</span>
+                </div>
+              </div>
+
+              <!-- High-Tech SVG Curve Chart -->
+              <div class="relative w-full h-52 flex items-end">
+                <svg class="w-full h-full overflow-visible" viewBox="0 0 500 160" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#EC4899" stop-opacity="0.4" />
+                      <stop offset="100%" stop-color="#EC4899" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Gradient area fill -->
+                  <path d="M0,130 C70,120 120,60 180,80 C240,100 300,30 360,45 C420,60 460,15 500,20 L500,160 L0,160 Z" fill="url(#chartGradient)"></path>
+                  <!-- Main neon line -->
+                  <path d="M0,130 C70,120 120,60 180,80 C240,100 300,30 360,45 C420,60 460,15 500,20" fill="none" stroke="#EC4899" stroke-width="3.5" filter="drop-shadow(0 0 10px rgba(236,72,153,0.8))"></path>
+                  <!-- Pulse Dots -->
+                  <circle cx="180" cy="80" r="4.5" fill="#FFFFFF" stroke="#EC4899" stroke-width="2" />
+                  <circle cx="360" cy="45" r="4.5" fill="#FFFFFF" stroke="#EC4899" stroke-width="2" />
+                  <circle cx="500" cy="20" r="5" fill="#FF2D87" stroke="#FFFFFF" stroke-width="2" filter="drop-shadow(0 0 8px #FF2D87)" />
+                </svg>
+              </div>
+
+              <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-white/5 font-mono">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+              </div>
+            </div>
+
+            <!-- Pending Verifications Quick Card -->
+            <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="card-title">Verification Spotlight</h3>
+                  <span class="text-xs font-mono text-pink-400 font-bold">Zambia / Nigeria / SA</span>
+                </div>
+                <p class="card-subtitle mb-4">Pending licenses & Pink Badge candidates</p>
+                
+                <div id="overview-verifications-preview" class="space-y-3">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <button onclick="window.PixiesCore.switchTab('verifications')" class="btn-secondary w-full justify-center mt-4">
+                View Full Queue →
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Appointments Table Preview -->
+          <div class="data-table-container">
+            <div class="table-header-bar">
+              <div>
+                <h3 class="card-title">Live Bookings & Appointments</h3>
+                <p class="card-subtitle">Real-time feed across African regional and international gateways</p>
+              </div>
+              <button onclick="window.PixiesCore.switchTab('appointments')" class="text-xs text-pink-400 font-bold hover:underline">
+                View All Appointments →
+              </button>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Client</th>
+                  <th>Service & Technician</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="overview-appointments-preview">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 2: PRO VERIFICATIONS (NAILS & LASHES)
+             =================================================================== -->
+        <div id="view-verifications" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Technician & Lash Verification Center</h2>
+              <p class="view-subheading">Review professional certifications, background accreditation, and award the Pink Badge.</p>
+            </div>
+            <div class="view-actions">
+              <span class="text-xs text-gray-400 font-mono">3 Technicians Awaiting Approval</span>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Professional</th>
+                  <th>Category</th>
+                  <th>Location</th>
+                  <th>Credentials & Certificate</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="verifications-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 3: APPOINTMENTS & BOOKINGS
+             =================================================================== -->
+        <div id="view-appointments" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Appointments & Dispatch</h2>
+              <p class="view-subheading">Manage client appointments, WhatsApp confirmations, and service schedules.</p>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Client</th>
+                  <th>Service Details</th>
+                  <th>Date & Time</th>
+                  <th>Gross / Fee</th>
+                  <th>Gateway</th>
+                  <th>Status</th>
+                  <th>Twilio WhatsApp</th>
+                </tr>
+              </thead>
+              <tbody id="appointments-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 4: FINANCIALS & PAYMENT GATEWAY ROUTER
+             =================================================================== -->
+        <div id="view-financials" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Financial Routing & Treasury</h2>
+              <p class="view-subheading">Paystack (African Intra-Payments) and Stripe Connect (International Card Routing).</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Paystack Gateway Card -->
+            <div class="glass-panel p-6 rounded-2xl border-l-4 !border-l-blue-500">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+                    PS
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-white text-base">Paystack Gateway Router</h3>
+                    <p class="text-xs text-gray-400">Targeting Zambia (ZMW), Nigeria (NGN), South Africa (ZAR)</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">ONLINE</span>
+              </div>
+              <div class="space-y-2 text-sm text-gray-300 font-mono mt-4 pt-4 border-t border-white/5">
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Subaccount Splits:</span>
+                  <span class="text-white">Direct to Pro Accounts</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Processed Volume:</span>
+                  <span id="financials-paystack-count" class="text-white font-bold">3 Txns</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Currency Default:</span>
+                  <span class="text-pink-400">ZMW / NGN / ZAR</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stripe Connect Gateway Card -->
+            <div class="glass-panel p-6 rounded-2xl border-l-4 !border-l-purple-500">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                    ST
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-white text-base">Stripe Connect Router</h3>
+                    <p class="text-xs text-gray-400">Targeting International & Non-African Cardholders</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">ONLINE</span>
+              </div>
+              <div class="space-y-2 text-sm text-gray-300 font-mono mt-4 pt-4 border-t border-white/5">
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Transfer Scheme:</span>
+                  <span class="text-white">destination_charge + fee</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Processed Volume:</span>
+                  <span id="financials-stripe-count" class="text-white font-bold">1 Txn</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Currency Default:</span>
+                  <span class="text-purple-400">USD / GBP / EUR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 5: USERS & ROLES GOVERNANCE (RBAC)
+             =================================================================== -->
+        <div id="view-users" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Personnel Governance & RBAC</h2>
+              <p class="view-subheading">Authorized staff directory, role assignments, and cryptographic clearance.</p>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Identity</th>
+                  <th>Assigned Role</th>
+                  <th>Security Clearance</th>
+                  <th>Status</th>
+                  <th>Authentication Provider</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 6: SECURITY CENTER & AUDIT LEDGER
+             =================================================================== -->
+        <div id="view-security" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Pixies Core Security Center & Audit Ledger</h2>
+              <p class="view-subheading">Immutable event ledger recording every sign-in, sign-out, and role verification attempt.</p>
+            </div>
+            <div class="view-actions">
+              <button onclick="window.PixiesCore.exportAuditLog()" class="btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>Export Audit JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Security Event</th>
+                  <th>Identity</th>
+                  <th>Role Validation</th>
+                  <th>Result</th>
+                  <th>Audit Notes</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 7: SYSTEM SETTINGS & MAIN WEB CONTROL PANEL
+             =================================================================== -->
+        <div id="view-settings" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Platform System Settings & Main Web Control</h2>
+              <p class="view-subheading">Full administrative control over the live Pink Pixies consumer website. Changes broadcast instantly.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="settings-sync-status" class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">SYNCED</span>
+              <button onclick="window.PixiesCore.loadPlatformConfig()" class="btn-secondary text-xs">↻ Refresh Config</button>
+            </div>
+          </div>
+
+          <!-- SECTION A: MAINTENANCE & CORE TOGGLES -->
+          <div class="glass-panel p-6 rounded-2xl max-w-3xl space-y-6 mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2">Core Platform Toggles</h3>
+
+            <div class="flex items-center justify-between pb-4 border-b border-white/5">
+              <div>
+                <h4 class="font-bold text-white text-sm">🔒 Platform Maintenance Mode</h4>
+                <p class="text-xs text-gray-400">Halts new client bookings on the main Pink Pixies website. Shows maintenance notice to visitors.</p>
+              </div>
+              <input id="toggle-maintenance" type="checkbox" class="toggle toggle-pink accent-pink-500 w-5 h-5 cursor-pointer" onchange="window.PixiesCore.updatePlatformSetting('maintenance_mode', this.checked)" />
+            </div>
+
+            <div class="flex items-center justify-between pb-4 border-b border-white/5">
+              <div>
+                <h4 class="font-bold text-white text-sm">💬 Twilio WhatsApp Automated Dispatch</h4>
+                <p class="text-xs text-gray-400">Sends instant booking confirmations to clients upon payment on the main web.</p>
+              </div>
+              <input id="toggle-whatsapp" type="checkbox" checked class="toggle toggle-pink accent-pink-500 w-5 h-5 cursor-pointer" onchange="window.PixiesCore.updatePlatformSetting('whatsapp_notifications', this.checked)" />
+            </div>
+
+            <div class="flex items-center justify-between pb-4 border-b border-white/5">
+              <div>
+                <h4 class="font-bold text-white text-sm">🔔 Push & In-App Notifications</h4>
+                <p class="text-xs text-gray-400">Courier / Novu multi-channel notifications for bookings, reviews, and payments.</p>
+              </div>
+              <input id="toggle-push" type="checkbox" checked class="toggle toggle-pink accent-pink-500 w-5 h-5 cursor-pointer" onchange="window.PixiesCore.updatePlatformSetting('push_notifications', this.checked)" />
+            </div>
+          </div>
+
+          <!-- SECTION B: ANNOUNCEMENT BANNER CONTROL -->
+          <div class="glass-panel p-6 rounded-2xl max-w-3xl space-y-5 mb-8">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-widest text-pink-400">Main Web Announcement Banner</h3>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] text-gray-400">Active</span>
+                <input id="toggle-banner" type="checkbox" checked class="toggle toggle-pink accent-pink-500 w-5 h-5 cursor-pointer" />
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Banner Badge Label</label>
+                <input id="input-banner-badge" type="text" value="FLASH OFFER" class="form-input w-full" placeholder="e.g. FLASH OFFER, NEW, SALE" />
+              </div>
+              <div>
+                <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Banner Message Text</label>
+                <input id="input-banner-text" type="text" value="✨ FLASH OFFER: 20% OFF all Luxury Gel Nails & Russian Lashes this week! Use code PINK20" class="form-input w-full" />
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Link Target</label>
+                  <input id="input-banner-link" type="text" value="#featured-pros-container" class="form-input w-full" placeholder="#section or URL" />
+                </div>
+                <div>
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Button Label</label>
+                  <input id="input-banner-btn" type="text" value="Book Artist" class="form-input w-full" />
+                </div>
+              </div>
+            </div>
+
+            <button onclick="window.PixiesCore.saveBannerConfig()" class="btn-primary w-full">
+              📡 Publish Banner to Main Web
+            </button>
+          </div>
+
+          <!-- SECTION C: HERO / HOMEPAGE TEXT CONTROL -->
+          <div class="glass-panel p-6 rounded-2xl max-w-3xl space-y-5 mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-pink-400">Main Web Hero Section Copy</h3>
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Hero Badge Text</label>
+              <input id="input-hero-badge" type="text" class="form-input w-full" value="✨ Zambia & Nigeria's #1 Luxury Beauty Network" />
+            </div>
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Hero Title</label>
+              <input id="input-hero-title" type="text" class="form-input w-full" value="Discover & Book Verified Nail & Lash Artists" />
+            </div>
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Hero Subtitle</label>
+              <input id="input-hero-subtitle" type="text" class="form-input w-full" value="Direct home visits and luxury salon appointments across Lusaka, Lagos, and Cape Town." />
+            </div>
+            <button onclick="window.PixiesCore.saveHeroConfig()" class="btn-primary w-full">
+              📡 Publish Hero Copy to Main Web
+            </button>
+          </div>
+
+          <!-- SECTION D: FINANCIAL CONTROLS -->
+          <div class="glass-panel p-6 rounded-2xl max-w-3xl space-y-5 mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-pink-400">Financial & Gateway Controls</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Take Rate (%)</label>
+                <input id="input-take-rate" type="number" min="0" max="100" step="0.5" value="15" class="form-input w-full" />
+              </div>
+              <div>
+                <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Min Deposit (%)</label>
+                <input id="input-deposit" type="number" min="0" max="100" step="5" value="20" class="form-input w-full" />
+              </div>
+              <div>
+                <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-1">Default Currency</label>
+                <select id="input-currency" class="form-select">
+                  <option value="ZMW">ZMW (Kwacha)</option>
+                  <option value="NGN">NGN (Naira)</option>
+                  <option value="ZAR">ZAR (Rand)</option>
+                  <option value="USD">USD (Dollar)</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 pt-2">
+              <label class="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                <input id="toggle-paystack" type="checkbox" checked class="accent-pink-500 w-4 h-4" /> Paystack (Africa)
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                <input id="toggle-stripe" type="checkbox" checked class="accent-pink-500 w-4 h-4" /> Stripe Connect (Int'l)
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                <input id="toggle-cash" type="checkbox" checked class="accent-pink-500 w-4 h-4" /> Cash on Service
+              </label>
+            </div>
+            <button onclick="window.PixiesCore.saveFinancialConfig()" class="btn-primary w-full">
+              📡 Apply Financial Settings to Main Web
+            </button>
+          </div>
+
+          <!-- SECTION E: DIAGNOSTICS -->
+          <div class="glass-panel p-6 rounded-2xl max-w-3xl">
+            <button onclick="window.PixiesCore.runDiagnostics()" class="btn-primary">
+              ⚡ Run Full Diagnostics
+            </button>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 8: LIVE CONCIERGE & MARKETING/HR CHAT DESK
+             =================================================================== -->
+        <div id="view-concierge" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h2 class="view-heading">Marketing & HR Live Concierge Desk</h2>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-mono text-emerald-400 font-bold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  API BRIDGE ONLINE
+                </span>
+              </div>
+              <p class="view-subheading">Inbound user questions from the main website arrive here in real time. Reply manually as Marketing & HR.</p>
+            </div>
+            <div class="view-actions flex items-center gap-2">
+              <button onclick="window.PixiesCore.simulateInboundInquiry()" class="btn-secondary text-xs flex items-center gap-1.5" title="Simulates a real visitor asking a question from pinkpixies.com">
+                <span>⚡ Simulate Inbound User Inquiry</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Concierge Two-Column Workspace -->
+          <div class="concierge-workspace glass-panel rounded-2xl overflow-hidden border border-pink-500/20 flex flex-col md:flex-row h-[620px]">
+            <!-- Left Pane: Conversations Queue -->
+            <div class="concierge-sidebar w-full md:w-80 border-r border-white/10 flex flex-col bg-black/20">
+              <div class="p-3.5 border-b border-white/10 bg-white/[0.02]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-white tracking-wider uppercase">Active Conversations</span>
+                  <span id="concierge-queue-count" class="text-xs font-mono text-pink-400 font-bold">1 Active</span>
+                </div>
+                <!-- Status Filter Pills -->
+                <div class="flex gap-1.5 text-[11px] font-medium">
+                  <button class="filter-pill active" onclick="window.PixiesCore.filterConversations('all', this)">All</button>
+                  <button class="filter-pill" onclick="window.PixiesCore.filterConversations('open', this)">Open</button>
+                  <button class="filter-pill" onclick="window.PixiesCore.filterConversations('in_progress', this)">In Progress</button>
+                  <button class="filter-pill" onclick="window.PixiesCore.filterConversations('resolved', this)">Resolved</button>
+                </div>
+              </div>
+
+              <!-- Conversation Threads List -->
+              <div id="concierge-threads-list" class="flex-1 overflow-y-auto divide-y divide-white/5">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+
+            <!-- Right Pane: Active Chat Room -->
+            <div id="concierge-chat-room" class="concierge-chat-pane flex flex-col flex-1 bg-black/30">
+              <!-- Thread Header -->
+              <div id="chat-thread-header" class="p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+                <div class="flex items-center gap-3">
+                  <div id="active-client-avatar" class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center font-bold text-white text-xs">
+                    MC
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h4 id="active-client-name" class="font-bold text-white text-sm">Mercy Chisanga</h4>
+                      <span id="active-client-badge" class="badge-status status-verified text-[10px]">CLIENT</span>
+                    </div>
+                    <div id="active-client-meta" class="text-[11px] text-gray-400 font-mono">
+                      +260 97 8812999 • Roma, Lusaka • Mobile Nail Tech
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-400 font-medium">Status:</span>
+                    <select id="active-thread-status" class="form-select !py-1 !px-2.5 !text-xs cursor-pointer" onchange="window.PixiesCore.updateActiveThreadStatus(this.value)">
+                      <option value="open">Open (Needs Response)</option>
+                      <option value="in_progress">In Progress</option>
+                      <option value="resolved">Resolved</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chat Messages Stream -->
+              <div id="concierge-messages-stream" class="flex-1 p-5 overflow-y-auto space-y-4">
+                <!-- Dynamically populated via JS -->
+              </div>
+
+              <!-- Quick Reply Chips Bar -->
+              <div class="px-5 py-2.5 border-t border-white/5 bg-white/[0.01] flex items-center gap-2 overflow-x-auto">
+                <span class="text-[11px] text-pink-400/80 font-bold whitespace-nowrap">⚡ HR Quick Replies:</span>
+                <button type="button" class="quick-reply-chip" onclick="window.PixiesCore.applyQuickReply('Welcome to Pink Pixies! I am with Marketing & HR. How can we assist your beauty booking today?')">✨ Welcome</button>
+                <button type="button" class="quick-reply-chip" onclick="window.PixiesCore.applyQuickReply('Yes! Our verified mobile nail technicians bring full professional sterilization kits directly to your doorstep.')">💅 Mobile Nails</button>
+                <button type="button" class="quick-reply-chip" onclick="window.PixiesCore.applyQuickReply('Our Lash Specialists provide Classic, Russian Volume, and Hybrid styles with hypoallergenic medical-grade adhesive.')">👁️ Lashes</button>
+                <button type="button" class="quick-reply-chip" onclick="window.PixiesCore.applyQuickReply('The Pink Badge is awarded exclusively to technicians with verified board licenses and health certificates.')">💖 Pink Badge</button>
+                <button type="button" class="quick-reply-chip" onclick="window.PixiesCore.applyQuickReply('Payments are held in escrow via Paystack or Stripe Connect and released only after your appointment is confirmed.')">💳 Payments</button>
+              </div>
+
+              <!-- Chat Message Composer -->
+              <div class="p-4 border-t border-white/10 bg-white/[0.03]">
+                <form id="concierge-composer-form" class="flex flex-col gap-2.5" onsubmit="window.PixiesCore.sendConciergeReply(event)">
+                  <div class="relative">
+                    <textarea id="concierge-reply-input" class="w-full form-input !py-3 !pr-28 !text-sm resize-none rounded-xl" rows="2" placeholder="Type official response from Marketing & HR..." required></textarea>
+                    <button type="submit" class="absolute right-2.5 bottom-2.5 btn-primary !py-1.5 !px-3.5 !text-xs flex items-center gap-1.5 shadow-lg">
+                      <span>Send Reply</span>
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between text-[11px] text-gray-400 px-1">
+                    <div class="flex items-center gap-2">
+                      <input type="checkbox" id="concierge-auto-resolve" class="accent-pink-500 cursor-pointer" />
+                      <label for="concierge-auto-resolve" class="cursor-pointer">Mark conversation as Resolved upon send</label>
+                    </div>
+                    <span class="font-mono text-gray-500 hidden sm:inline">Press Enter to send (Shift + Enter for newline)</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 9: LOGIN VIDEO & BRAND CONTROLLER
+             =================================================================== -->
+        <div id="view-media" class="tab-view tab-content hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-heading">Login Portal Video Background & Brand Hub</h2>
+              <p class="view-subheading">Marketing & HR can dynamically change the background video and visual theme for the public login screen.</p>
+            </div>
+            <div class="view-actions">
+              <span id="media-status-badge" class="badge-status status-verified">LIVE ON SIGN-IN PORTAL</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left 7 Cols: Video Configuration Form -->
+            <div class="lg:col-span-7 glass-panel p-6 rounded-2xl space-y-5">
+              <div>
+                <h3 class="card-title mb-1">Background Video Asset Settings</h3>
+                <p class="card-subtitle">Set direct MP4 or WebM video stream URLs (e.g. hosted on Cloudflare R2, CDN, or AWS S3).</p>
+              </div>
+
+              <!-- Quick Presets -->
+              <div>
+                <label class="form-label !mb-1.5">Curated Ambient Presets</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <button type="button" class="preset-btn" onclick="window.PixiesCore.applyVideoPreset('https://assets.mixkit.co/videos/preview/mixkit-pink-particles-floating-in-the-dark-41584-large.mp4', 'Ambient Dark Pink Particles')">
+                    ✨ Ambient Particles
+                  </button>
+                  <button type="button" class="preset-btn" onclick="window.PixiesCore.applyVideoPreset('https://assets.mixkit.co/videos/preview/mixkit-curved-lines-of-magenta-light-41586-large.mp4', 'Magenta Light Waves')">
+                    🌊 Neon Waves
+                  </button>
+                  <button type="button" class="preset-btn" onclick="window.PixiesCore.applyVideoPreset('https://assets.mixkit.co/videos/preview/mixkit-abstract-pink-and-purple-ink-floating-41590-large.mp4', 'Velvet Ink Nebula')">
+                    🌌 Velvet Nebula
+                  </button>
+                </div>
+              </div>
+
+              <form id="media-config-form" onsubmit="window.PixiesCore.saveVideoConfig(event)" class="space-y-4">
+                <!-- Video URL -->
+                <div class="form-group">
+                  <label class="form-label" for="input-video-url">Video Stream Direct URL (.mp4 / .webm)</label>
+                  <input type="url" id="input-video-url" class="form-input font-mono text-xs" required placeholder="https://..." oninput="window.PixiesCore.previewVideo(this.value)" />
+                </div>
+
+                <!-- Video Title -->
+                <div class="form-group">
+                  <label class="form-label" for="input-video-title">Campaign / Asset Label</label>
+                  <input type="text" id="input-video-title" class="form-input text-xs" placeholder="e.g. Q4 Pink Pixies Luxury Launch Campaign" />
+                </div>
+
+                <!-- Poster Fallback Image -->
+                <div class="form-group">
+                  <label class="form-label" for="input-video-poster">Fallback Poster Image URL (Optional)</label>
+                  <input type="url" id="input-video-poster" class="form-input font-mono text-xs" placeholder="https://..." />
+                </div>
+
+                <!-- Canvas Particle Mesh Toggle -->
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div>
+                    <div class="text-xs font-bold text-white">Enable Canvas Fallback Particle Mesh</div>
+                    <div class="text-[11px] text-gray-400">Renders animated neon nodes if user bandwidth is low or video fails to load.</div>
+                  </div>
+                  <input type="checkbox" id="input-video-particles" checked class="w-4 h-4 accent-pink-500 cursor-pointer" />
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-3 pt-2">
+                  <button type="submit" class="btn-primary flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Publish Video to Live Portal</span>
+                  </button>
+                  <button type="button" class="btn-secondary text-xs" onclick="window.PixiesCore.resetVideoToDefault()">
+                    Reset to Default
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right 5 Cols: Interactive Realtime Stage Preview -->
+            <div class="lg:col-span-5 glass-panel p-6 rounded-2xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="card-title">Live Sign-In Card Simulation</h3>
+                  <span class="text-[10px] font-mono text-pink-400 font-bold">1:1 LIVE VIEW</span>
+                </div>
+                <p class="card-subtitle mb-4">Simulates how the frosted glass sign-in card renders against your selected video.</p>
+
+                <!-- Stage Viewport Container -->
+                <div class="preview-stage-container relative w-full h-80 rounded-xl overflow-hidden border border-pink-500/30 shadow-2xl">
+                  <!-- Live Preview Video Element -->
+                  <video id="preview-stage-video" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
+                    <source id="preview-stage-source" src="https://assets.mixkit.co/videos/preview/mixkit-pink-particles-floating-in-the-dark-41584-large.mp4" type="video/mp4" />
+                  </video>
+                  <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+
+                  <!-- Simulated Mini Sign-In Card -->
+                  <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+                    <div class="w-64 p-4 rounded-xl bg-[rgba(14,14,22,0.85)] border border-pink-500/30 backdrop-blur-md shadow-2xl text-center space-y-2">
+                      <div class="w-6 h-6 mx-auto rounded-full bg-pink-500 flex items-center justify-center text-white text-[10px]">💖</div>
+                      <div class="text-xs font-bold text-white">Welcome to Pixies Core</div>
+                      <div class="text-[10px] text-gray-400">Role-Based Access Portal</div>
+                      <div class="w-full h-6 rounded bg-white/10 border border-white/10 mt-2"></div>
+                      <div class="w-full h-6 rounded bg-pink-600/60 mt-1"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 p-3 rounded-xl bg-pink-500/10 border border-pink-500/20 text-xs text-pink-300">
+                💡 <strong>Marketing HR Tip</strong>: Dark ambient videos with slow, undulating particles provide the highest contrast and readability for the sign-in form.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </section>
+
+  <!-- =========================================================================
+       SEARCH PALETTE MODAL (Ctrl + K)
+       ========================================================================= -->
+  <div id="search-palette-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="p-4 border-b border-white/10 flex items-center gap-3">
+        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <input id="palette-search-input" type="text" class="w-full bg-transparent text-white text-sm outline-none placeholder-gray-500 font-sans" placeholder="Search technicians, appointments, or jump to view..." />
+        <button onclick="window.PixiesCore.toggleSearchPalette()" class="text-xs text-gray-400 hover:text-white">ESC</button>
+      </div>
+      <div class="p-4 space-y-1 text-xs">
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('concierge'); window.PixiesCore.toggleSearchPalette();">
+          <span>💬 Jump to: <strong>Live Concierge Desk (Marketing & HR)</strong></span>
+          <span class="font-mono text-pink-400">LIVE</span>
+        </div>
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('media'); window.PixiesCore.toggleSearchPalette();">
+          <span>🎬 Jump to: <strong>Login Video & Brand Hub</strong></span>
+          <span class="font-mono text-purple-400">MEDIA</span>
+        </div>
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('verifications'); window.PixiesCore.toggleSearchPalette();">
+          <span>⚡ Jump to: <strong>Pro Verifications (3 Pending)</strong></span>
+          <span class="font-mono text-gray-500">Go</span>
+        </div>
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('appointments'); window.PixiesCore.toggleSearchPalette();">
+          <span>📅 Jump to: <strong>Live Appointments</strong></span>
+          <span class="font-mono text-gray-500">Go</span>
+        </div>
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('security'); window.PixiesCore.toggleSearchPalette();">
+          <span>🛡️ Jump to: <strong>Security Center & Audit Ledger</strong></span>
+          <span class="font-mono text-gray-500">Go</span>
+        </div>
+        <div class="p-2.5 rounded-lg hover:bg-pink-500/15 cursor-pointer flex items-center justify-between text-gray-300 hover:text-white" onclick="window.PixiesCore.switchTab('financials'); window.PixiesCore.toggleSearchPalette();">
+          <span>💳 Jump to: <strong>Financials & Dual Payment Router</strong></span>
+          <span class="font-mono text-gray-500">Go</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

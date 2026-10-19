@@ -1,0 +1,58 @@
+[
+  {
+    "id": "APT-8821",
+    "clientName": "Nadia Phiri",
+    "clientPhone": "+260 96 4432100",
+    "proName": "Chanda Bwalya",
+    "category": "Nails",
+    "serviceName": "Full Set Ombré Acrylic + 3D Stones",
+    "dateTime": "2026-10-19 14:00",
+    "amount": "ZMW 650.00",
+    "fee": "ZMW 97.50",
+    "gateway": "Paystack",
+    "status": "confirmed",
+    "whatsappSent": true
+  },
+  {
+    "id": "APT-8822",
+    "clientName": "Sipho Ndlovu",
+    "clientPhone": "+27 73 8881234",
+    "proName": "Chloe Visser",
+    "category": "Lashes",
+    "serviceName": "Mega Volume Lash Installation",
+    "dateTime": "2026-10-19 16:30",
+    "amount": "ZMW 820.00",
+    "fee": "ZMW 123.00",
+    "gateway": "Paystack",
+    "status": "confirmed",
+    "whatsappSent": true
+  },
+  {
+    "id": "APT-8823",
+    "clientName": "Jessica Sterling",
+    "clientPhone": "+44 79 11122233",
+    "proName": "Amina Bello",
+    "category": "Lashes",
+    "serviceName": "Signature Russian Volume",
+    "dateTime": "2026-10-20 11:00",
+    "amount": "$75.00",
+    "fee": "$11.25",
+    "gateway": "Stripe Connect",
+    "status": "pending",
+    "whatsappSent": false
+  },
+  {
+    "id": "APT-8824",
+    "clientName": "Tamara Banda",
+    "clientPhone": "+260 97 9998888",
+    "proName": "Chanda Bwalya",
+    "category": "Nails",
+    "serviceName": "French BIAB Overlay + Nail Spa",
+    "dateTime": "2026-10-20 15:00",
+    "amount": "ZMW 450.00",
+    "fee": "ZMW 67.50",
+    "gateway": "Paystack",
+    "status": "completed",
+    "whatsappSent": true
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "PRO-101",
+    "name": "Chanda Bwalya",
+    "email": "chanda.b@pixies.zm",
+    "phone": "+260 97 1234567",
+    "category": "Nails",
+    "specialty": "Gel Extensions & Nail Art",
+    "location": "Lusaka, Zambia (Woodlands)",
+    "appliedDate": "2026-10-17",
+    "status": "approved",
+    "pinkBadge": true,
+    "certDoc": "Certified Master Nail Technician — Zambia Beauty Board (PDF)",
+    "rating": 4.9,
+    "experience": "5 Years"
+  },
+  {
+    "id": "PRO-102",
+    "name": "Amina Bello",
+    "email": "amina.lashes@pixies.ng",
+    "phone": "+234 80 98765432",
+    "category": "Lashes",
+    "specialty": "Russian Volume & Hybrid Lashes",
+    "location": "Lekki Phase 1, Lagos, Nigeria",
+    "appliedDate": "2026-10-16",
+    "status": "approved",
+    "pinkBadge": true,
+    "certDoc": "International Lash Masters Accreditation 2025 (PDF)",
+    "rating": 5.0,
+    "experience": "4 Years"
+  },
+  {
+    "id": "PRO-103",
+    "name": "Chloe Visser",
+    "email": "chloe.v@pixies.za",
+    "phone": "+27 82 5550199",
+    "category": "Nails & Lashes",
+    "specialty": "Acrylic Sculpting & Lash Lifts",
+    "location": "Camps Bay, Cape Town, South Africa",
+    "appliedDate": "2026-10-18",
+    "status": "pending",
+    "pinkBadge": false,
+    "certDoc": "South African Cosmetology Guild Diploma (PDF)",
+    "rating": 4.8,
+    "experience": "3 Years"
+  }
+]

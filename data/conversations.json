@@ -1,0 +1,54 @@
+[
+  {
+    "id": "conv-101",
+    "sessionId": "sess_client_lusaka_091",
+    "clientName": "Mercy Chisanga",
+    "clientContact": "+260 97 8812999",
+    "location": "Roma, Lusaka",
+    "category": "Mobile Nail Tech",
+    "status": "open",
+    "lastMessage": "Hello, do your verified nail technicians do home visits in Roma, Lusaka?",
+    "lastMessageAt": "Just now",
+    "unread": true,
+    "messages": [
+      {
+        "id": "msg-1",
+        "senderType": "client",
+        "senderName": "Mercy Chisanga",
+        "senderRole": "Client",
+        "content": "Hello, do your verified nail technicians do home visits in Roma, Lusaka? I need bridal nails done this Friday.",
+        "timestamp": "16:22"
+      }
+    ]
+  },
+  {
+    "id": "conv-102",
+    "sessionId": "sess_client_lagos_412",
+    "clientName": "Folake Adeleke",
+    "clientContact": "+234 81 2345678",
+    "location": "Victoria Island, Lagos",
+    "category": "Russian Volume Lashes",
+    "status": "in_progress",
+    "lastMessage": "Can I pay in Naira using Paystack?",
+    "lastMessageAt": "12m ago",
+    "unread": false,
+    "messages": [
+      {
+        "id": "msg-2",
+        "senderType": "client",
+        "senderName": "Folake Adeleke",
+        "senderRole": "Client",
+        "content": "Can I pay in Naira using Paystack?",
+        "timestamp": "16:10"
+      },
+      {
+        "id": "msg-3",
+        "senderType": "marketing_hr",
+        "senderName": "Marketing & HR Lead",
+        "senderRole": "HR Specialist",
+        "content": "Yes Folake! Paystack directly supports NGN payments with instant escrow protection.",
+        "timestamp": "16:12"
+      }
+    ]
+  }
+]
